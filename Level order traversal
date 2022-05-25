@@ -1,0 +1,30 @@
+#include <queue>
+void printLevelWise(BinaryTreeNode<int> *root) {
+    if(root==NULL)
+        return;
+    queue<BinaryTreeNode<int>*> q;
+    q.push(root);
+    while(1)
+    {
+        //nodecount is the no. of nodes at current level
+        int nodecount = q.size();
+        if(nodecount==0)//at the end when last level nodes are printed then nodecount is 0 as their was nothing,
+            break;  //to push hence we have to break the loop
+          
+        //now we need to print the node data
+        //then we will remove it from queue and add its children in queue
+        while(nodecount>0)//if node count 0 then it indicates that node of current level are printed so change the line
+        {
+            BinaryTreeNode<int>* front = q.front();
+            q.pop();
+            cout<<front->data<<" ";
+            if(front->left!=NULL)
+                q.push(front->left);
+            if(front->right!=NULL)
+                q.push(front->right);
+            //now one node that was root is printed and popped so reduce the nodecount
+            nodecount--;
+        }
+        cout<<endl;
+    }
+}
