@@ -1,0 +1,13 @@
+void mirrorBinaryTree(BinaryTreeNode<int>* root) {
+   if(root==NULL)
+       return;
+    //now root->left can be a null also so we should use a ninarynode type temp variable to swap null
+    BinaryTreeNode<int>* temp;
+    //swapping begins
+    temp = root->left;
+    root->left = root->right;
+    root->right = temp;
+    //now recursive calls
+    mirrorBinaryTree(root->left);
+    mirrorBinaryTree(root->right);
+}
