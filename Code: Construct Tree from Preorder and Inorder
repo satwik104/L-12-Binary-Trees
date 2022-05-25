@@ -1,0 +1,42 @@
+/********************
+bascically we need some points here to make recursive calls :
+
+1.Root
+2.left_preorder_start
+3.left_tree_length
+4.left_inorder_start
+5.right_preorder_start
+6.right_tree_length
+7.right_inorder_start
+
+***********************************/
+BinaryTreeNode<int>* buildTree(int *preorder, int preLength, int *inorder, int inLength)
+{
+    if(preLength!=inLength || preorder==NULL || inorder==NULL || preLength==0)
+        return NULL;
+    int rootdata = preorder[0];
+    //now we have to find total left nodes and right nodes
+    int leftcount,rightcount;
+    //now we find rootdata in inorder array
+     int i;
+    for(i=0; i<inLength; i++)
+    {
+        if(inorder[i]==rootdata)
+            break;
+    }
+    //after coming out of loop we have i as index of root in inorder array
+    //so length of left tree is no. of nodes in left tree that means value of i
+    leftcount = i;
+    //now right count is  is no. of nodes in right tree 
+    //that is total length - leftcount - 1, 1 is for subtracting root
+    rightcount = preLength-leftcount -1;//we van also write inlength -leftcount -1
+    //so now we know the length of left tree that is leftcount
+    //and length of right treee that is rightcount
+    BinaryTreeNode<int>* root = new BinaryTreeNode<int>(rootdata);
+    //so we call recursively and return the root
+    //in recursion we just need to tell the start point of left and right tree and their length
+    root->left = buildTree(preorder+1,leftcount,inorder,leftcount);
+    root->right = buildTree(preorder+1+leftcount,rightcount,inorder+leftcount+1,rightcount);
+    return root;
+   
+}
