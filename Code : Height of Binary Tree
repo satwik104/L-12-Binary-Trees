@@ -1,0 +1,12 @@
+int height(BinaryTreeNode<int>* root) {
+    if(root==NULL)
+        return 0;
+    //if we pass this it means we have atleast root node so height 1
+    int heightleft = 1+height(root->left);
+    int heightright = 1+height(root->right);
+    if(heightleft>=heightright)//we need to take longest path btw left right
+        return heightleft;
+    else
+        return heightright;
+    
+}
